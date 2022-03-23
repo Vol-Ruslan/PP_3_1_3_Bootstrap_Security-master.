@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<table border="12">
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Password</th>
+    </tr>
+    <th:block th:each="user : ${users}">
+        <tr>
+            <td><a th:href="@{/kino/{id}(id=${user.getId()})}" th:text="${user.getId()}">...</a></td>
+            <td th:text="${user.getName()}">...</td>
+            <td th:text="${user.getPassword()}">...</td>
+<!--            <a th:href="@{/kino/{id}(id=${film.getId()})}" th:text="${film.getTitle()}">user</a>-->
+        </tr>
+    </th:block>
+</table>
+<br/>
+<hr/>
+<br/>
+<a th:href="@{/kino/new}">New User</a>
+<!--<div>-->
+<!--    <th:block th:each="film : ${films}">-->
+<!--        <h1 th:text="${film}"></h1>-->
+<!--    </th:block>-->
+<!--</div>-->
+</body>
+</html>

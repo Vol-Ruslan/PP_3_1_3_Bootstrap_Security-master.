@@ -3,6 +3,7 @@ package ru.kata.spring.boot_security.demo.Service;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.kata.spring.boot_security.demo.dao.UserRepository;
@@ -19,10 +20,15 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @PersistenceContext
     EntityManager entityManager;
 
+    final BCryptPasswordEncoder bCryptPasswordEncoder;
+
+
     final UserRepository userRepository;
 
-    public UserServiceImpl(UserRepository userRepository) {
+    public UserServiceImpl(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userRepository = userRepository;
+
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
     @Transactional
@@ -32,8 +38,20 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Transactional
-    public void add(User user) {
+    @Override
+    public boolean add(User user) {
+
+        User userFromDB = userRepository.findByName(user.getUsername());
+
+        if (userFromDB != null) {
+            return false;
+        }
+
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+
         userRepository.save(user);
+
+        return true;
     }
 
     @Transactional
@@ -45,6 +63,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Transactional
     @Override
     public void edit(User user) {
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         entityManager.merge(user);
     }
 
@@ -53,6 +72,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public User getById(long id) {
         return userRepository.getById(id);
     }
+
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

@@ -21,8 +21,18 @@ public class UserDAOImpl implements UserDAO {
 
     }
 
-    public void add(User user) {
+    public boolean add(User user) {
+
+        User userDB = getById(user.getId());
+
+        if (userDB != null) {
+
+            return false;
+
+        }
         entityManager.persist(user);
+
+        return true;
     }
 
     public void delete(User user) {

@@ -8,7 +8,7 @@ public interface UserDAO {
 
     List<User> allUsers();
 
-    void add(User film);
+    boolean add(User film);
 
     void delete(User film);
 

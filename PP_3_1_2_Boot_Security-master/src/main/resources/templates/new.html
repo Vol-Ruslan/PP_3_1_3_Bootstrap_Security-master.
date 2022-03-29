@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <title>New Film</title>
@@ -14,7 +15,24 @@
     <label for="password">Enter Password: </label>
     <input type="text" th:field="*{password}" id="password"/>
     <br/>
+    <p>
+        <label>Roles:
+            <input type="checkbox" name="roleList"
+                   th:each="role : ${roles}"
+                   th:text="${role.name}"
+                   th:value="${role.name}"
+                   th:field="*{roles}"
+            />
+        </label>
+    </p>
+    <br/>
+
     <input type="submit" value="Create!"/>
+
+    <form name="logoutForm" th:action="@{/logout}" method="post" th:hidden="false">
+        <input type="submit" value="Logout"/>
+    </form>
+
 </form>
 
 </body>

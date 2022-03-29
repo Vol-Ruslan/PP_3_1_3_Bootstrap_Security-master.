@@ -7,19 +7,37 @@
 </head>
 <body>
 <table border="12">
+    <thead>
     <tr>
         <th>Id</th>
         <th>Name</th>
         <th>Password</th>
     </tr>
-    <th:block th:each="user : ${users}">
-        <tr>
-            <td><a th:href="@{/admin/{id}(id=${user.getId()})}" th:text="${user.getId()}">...</a></td>
-            <td th:text="${user.getName()}">...</td>
-            <td th:text="${user.getPassword()}">...</td>
-<!--            <a th:href="@{/kino/{id}(id=${film.getId()})}" th:text="${film.getTitle()}">user</a>-->
-        </tr>
-    </th:block>
+    </thead>
+    <tbody>
+    <tr th:each="user : ${users}">
+        <td><a th:href="@{/admin/{id}(id=${user.getId()})}" th:text="${user.getId()}">...</a></td>
+        <td><span th:text="${user.getName()}">...</span></td>
+        <td><span th:text="${user.getPassword()}">...</span></td>
+        <td>
+            <div th:each="role : ${user.getRoles()}">
+                <a th:text="${role.getName()}">user</a>
+            </div>
+        </td>
+        <td>
+            <form th:method="GET" th:action="@{/admin/{id}/edit(id=${user.getId()})}">
+                <input type="submit" value="Edit"/>
+            </form>
+        </td>
+        <td>
+            <form th:method="DELETE" th:action="@{/admin/{id}(id=${user.getId()})}">
+                <input type="submit" value="Delete"/>
+            </form>
+        </td>
+        <!--            <a th:href="@{/kino/{id}(id=${film.getId()})}" th:text="${film.getTitle()}">user</a>-->
+    </tr>
+    </tbody>
+
 </table>
 
 <br/>

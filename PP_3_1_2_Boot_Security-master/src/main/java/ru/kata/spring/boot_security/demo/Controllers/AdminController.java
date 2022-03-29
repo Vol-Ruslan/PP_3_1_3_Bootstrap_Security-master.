@@ -2,8 +2,12 @@ package ru.kata.spring.boot_security.demo.Controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-import ru.kata.spring.boot_security.demo.Service.UserServiceImpl;
+import ru.kata.spring.boot_security.demo.Service.RoleService;
+import ru.kata.spring.boot_security.demo.Service.UserService;
+import ru.kata.spring.boot_security.demo.Convert.ConvertByUser;
+import ru.kata.spring.boot_security.demo.cover.CoverUser;
 import ru.kata.spring.boot_security.demo.model.User;
 
 @Controller
@@ -11,11 +15,15 @@ import ru.kata.spring.boot_security.demo.model.User;
 public class AdminController {
 
 
-    private final UserServiceImpl userService;
+    final UserService userService;
+    final RoleService roleService;
+    final ConvertByUser convertByUser;
 
 
-    public AdminController(UserServiceImpl userService) {
+    public AdminController(UserService userService, RoleService roleService, ConvertByUser convertByUser) {
         this.userService = userService;
+        this.roleService = roleService;
+        this.convertByUser = convertByUser;
     }
 
     @DeleteMapping("/{id}")
@@ -28,6 +36,7 @@ public class AdminController {
     @GetMapping("/{id}/edit")
     public String edit(Model model, @PathVariable("id") int id) {
         model.addAttribute("user", userService.getById(id));
+        model.addAttribute("roles", roleService.allRoles());
         return "edit";
 
     }
@@ -35,31 +44,35 @@ public class AdminController {
     @GetMapping("/{id}")
     public String show(@PathVariable("id") int id, Model model) {
         model.addAttribute("user", userService.getById(id));
-        return "show";
+        return "user";
     }
 
 
     @PatchMapping("/{id}")
-    public String update(@ModelAttribute("user") User user, @PathVariable("id") int id) {
-        userService.edit(user);
+    public String update(@ModelAttribute("user") CoverUser user, @PathVariable("id") int id) {
+        User userInToDB = convertByUser.convertByUser(user);
+        userInToDB.setId(id);
+        userService.edit(userInToDB);
         return "redirect:/admin";
     }
 
     @PostMapping()
-    public String creat(@ModelAttribute("user") User user) {
-        userService.add(user);
+    public String creat(@ModelAttribute("user") CoverUser user) {
+        User userInToDB = convertByUser.convertByUser(user);
+        userService.add(userInToDB);
         return "redirect:/admin";
 
     }
 
     @GetMapping("/new")
-    public String newUser(Model model) {
+    public String newUser(ModelMap model) {
         model.addAttribute("user", new User());
+        model.addAttribute("roles", roleService.allRoles());
         return "new";
     }
 
 
-    @GetMapping("")
+    @GetMapping()
     public String index(Model model) {
         model.addAttribute("users", userService.allUsers());
         return "index";

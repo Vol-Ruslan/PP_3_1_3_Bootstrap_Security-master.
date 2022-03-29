@@ -9,7 +9,7 @@ import java.util.List;
 public interface UserService {
     List<User> allUsers();
 
-    boolean add(User user);
+    void add(User user);
 
     void delete(User user);
 

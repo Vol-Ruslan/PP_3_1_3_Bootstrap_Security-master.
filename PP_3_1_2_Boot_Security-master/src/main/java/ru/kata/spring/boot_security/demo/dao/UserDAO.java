@@ -8,11 +8,13 @@ public interface UserDAO {
 
     List<User> allUsers();
 
-    boolean add(User film);
+    void add(User user);
 
-    void delete(User film);
+    void delete(User user);
 
-    void edit(User film);
+    void edit(User user);
 
     User getById(long id);
+
+    User findByName(String user);
 }

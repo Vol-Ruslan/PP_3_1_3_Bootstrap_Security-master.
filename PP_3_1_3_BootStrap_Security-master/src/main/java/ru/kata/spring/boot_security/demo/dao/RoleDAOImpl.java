@@ -2,6 +2,7 @@ package ru.kata.spring.boot_security.demo.dao;
 
 import org.springframework.stereotype.Repository;
 import ru.kata.spring.boot_security.demo.model.Role;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
@@ -21,16 +22,8 @@ public class RoleDAOImpl implements RoleDAO {
 
     public void add(Role role) {
 
-//        User userDB = getById(user.getId());
-//
-//        if (userDB != null) {
-//
-//            return false;
-//
-//        }
         entityManager.persist(role);
 
-//        return true;
     }
 
     public void delete(Role role) {

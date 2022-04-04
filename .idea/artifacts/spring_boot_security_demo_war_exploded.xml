@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
   <artifact type="exploded-war" name="spring-boot_security-demo:war exploded">
-    <output-path>$PROJECT_DIR$/PP_3_1_2_Boot_Security-master/target/spring-boot_security-demo-0.0.1-SNAPSHOT</output-path>
+    <output-path>$PROJECT_DIR$/PP_3_1_3_BootStrap_Security-master/target/spring-boot_security-demo-0.0.1-SNAPSHOT</output-path>
     <properties id="maven-jee-properties">
       <options>
         <exploded>true</exploded>
@@ -87,7 +87,7 @@
         </element>
       </element>
       <element id="directory" name="META-INF">
-        <element id="file-copy" path="$PROJECT_DIR$/PP_3_1_2_Boot_Security-master/target/spring-boot_security-demo-0.0.1-SNAPSHOT/META-INF/MANIFEST.MF" />
+        <element id="file-copy" path="$PROJECT_DIR$/PP_3_1_3_BootStrap_Security-master/target/spring-boot_security-demo-0.0.1-SNAPSHOT/META-INF/MANIFEST.MF" />
       </element>
       <element id="javaee-facet-resources" facet="spring-boot_security-demo/web/Web" />
     </root>

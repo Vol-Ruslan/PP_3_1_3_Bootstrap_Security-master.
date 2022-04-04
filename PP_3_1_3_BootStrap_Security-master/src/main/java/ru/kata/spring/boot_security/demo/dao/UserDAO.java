@@ -10,11 +10,11 @@ public interface UserDAO {
 
     void add(User user);
 
-    void delete(User user);
+    void delete(Long id);
 
     void edit(User user);
 
     User getById(long id);
 
-    User findByName(String user);
+    User findByEmail(String email);
 }

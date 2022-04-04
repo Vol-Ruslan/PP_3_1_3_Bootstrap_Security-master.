@@ -11,9 +11,11 @@ public interface UserService {
 
     void add(User user);
 
-    void delete(User user);
+    void delete(Long id);
 
     void edit(User user);
 
     User getById(long id);
+
+    User findByEmail(String email);
 }

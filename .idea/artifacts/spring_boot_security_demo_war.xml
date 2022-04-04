@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
   <artifact type="war" name="spring-boot_security-demo:war">
-    <output-path>$PROJECT_DIR$/PP_3_1_2_Boot_Security-master/target</output-path>
+    <output-path>$PROJECT_DIR$/PP_3_1_3_BootStrap_Security-master/target</output-path>
     <properties id="maven-jee-properties">
       <options>
         <module>spring-boot_security-demo</module>

@@ -43,8 +43,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Transactional
     @Override
-    public void delete(User user) {
-        userDAO.delete(user);
+    public void delete(Long id) {
+        userDAO.delete(id);
     }
 
     @Transactional
@@ -60,10 +60,15 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return userDAO.getById(id);
     }
 
+    @Override
+    public User findByEmail(String email) {
+        return userDAO.findByEmail(email);
+    }
+
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userDAO.findByName(username);
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        User user = findByEmail(email);
 
         if (user == null) {
             throw new UsernameNotFoundException("User not found");

@@ -29,14 +29,14 @@ public class Runner implements ApplicationRunner {
     }
 
     private void saveUser(){
-        User user1 = new User("Vasya","100",List.of(roleService.getById(1L)));
-        User user2 = new User("Petya", "100", List.of(roleService.getById(2L)));
+        User user1 = new User("Vasya", "Ivanov", (byte) 22, "1@mail.ru", "1", List.of(roleService.getById(1L)));
+        User user2 = new User("Petya", "Petrov", (byte) 33, "2@mail.ru", "1", List.of(roleService.getById(2L)));
         userService.add(user1);
         userService.add(user2);
     }
 
     @Override
-    public void run(ApplicationArguments args) throws Exception {
+    public void run(ApplicationArguments args) {
         saveRole();
         saveUser();
     }
